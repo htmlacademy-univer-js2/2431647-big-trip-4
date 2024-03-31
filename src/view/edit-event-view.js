@@ -1,52 +1,60 @@
-import { createElement } from '../render.js';
-import { humanizeDate } from '../utils.js';
-import { mockOffers } from '../mock/offers.js';
-import { mockDestinations } from '../mock/destinations.js';
-import { DATE_FORMAT_FULL } from '../const.js';
+import { humanizeDate } from "../utils.js";
+import { mockOffers } from "../mock/offers.js";
+import { mockDestinations } from "../mock/destinations.js";
+import { DATE_FORMAT_FULL } from "../const.js";
+import AbstractView from "../framework/view/abstract-view.js";
 
 function getEventTypeOffer(event) {
-    return mockOffers.find((offer) => offer.type === event.type);
+  return mockOffers.find((offer) => offer.type === event.type);
 }
 
 function getEventDestination(event) {
-    return mockDestinations.find((destination) => destination.id === event.destination);
+  return mockDestinations.find(
+    (destination) => destination.id === event.destination
+  );
 }
 
 function createEventOffersTemplate(event) {
-    const eventTypeOffer = getEventTypeOffer(event);
-    const offersTemplate = eventTypeOffer ?
-        `
+  const eventTypeOffer = getEventTypeOffer(event);
+  const offersTemplate = eventTypeOffer
+    ? `
       <div class="event__available-offers">
-        ${eventTypeOffer.offers.map((offer) => `
+        ${eventTypeOffer.offers
+          .map(
+            (offer) => `
           <div class="event__offer-selector">
             <input
               class="event__offer-checkbox  visually-hidden"
               id="event-offer-${offer.title}-1"
               type="checkbox"
               name="event-offer-${offer.title}"
-              ${event.offers.includes(offer.id) ? 'checked' : ''}
+              ${event.offers.includes(offer.id) ? "checked" : ""}
             >
-            <label class="event__offer-label" for="event-offer-${offer.title}-1">
+            <label class="event__offer-label" for="event-offer-${
+              offer.title
+            }-1">
               <span class="event__offer-title">${offer.title}</span>
               &plus;&euro;&nbsp;
               <span class="event__offer-price">${offer.price}</span>
             </label>
           </div>
-        `).join('')}
-    ` : '';
+        `
+          )
+          .join("")}
+    `
+    : "";
 
   return offersTemplate;
 }
 
 function createEditEventTemplate(event) {
-  const {type, basePrice, dateFrom, dateTo} = event;
+  const { type, basePrice, dateFrom, dateTo } = event;
 
   const offersTemplate = createEventOffersTemplate(event);
 
   const destination = getEventDestination(event);
 
-  return (
-    `<li class="trip-events__item">
+  return `<li class="trip-events__item">
       <form class="event event--edit" action="#" method="post">
         <header class="event__header">
           <div class="event__type-wrapper">
@@ -121,9 +129,13 @@ function createEditEventTemplate(event) {
               list="destination-list-2"
             >
             <datalist id="destination-list-2">
-              ${mockDestinations.map((mockDestination) => `
+              ${mockDestinations
+                .map(
+                  (mockDestination) => `
                 <option value="${mockDestination.name}"></option>
-              `).join(' ')}
+              `
+                )
+                .join(" ")}
             </datalist>
           </div>
 
@@ -175,32 +187,37 @@ function createEditEventTemplate(event) {
 
           <section class="event__section  event__section--destination">
             <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-            <p class="event__destination-description">${destination.description}</p>
+            <p class="event__destination-description">${
+              destination.description
+            }</p>
           </section>
         </section>
       </form>
-    </li>`
-  );
+    </li>`;
 }
 
-export default class EditEventView {
-  constructor({event}) {
-    this.event = event;
+export default class EditEventView extends AbstractView {
+  #event = null;
+  #handleClick = null;
+
+  constructor({ event, onClick }) {
+    super();
+    this.#event = event;
+    this.#handleClick = onClick;
+    this.element
+      .querySelector(".event--edit")
+      .addEventListener("submit", this.#clickHandler);
+    this.element
+      .querySelector(".event__rollup-btn")
+      .addEventListener("click", this.#clickHandler);
   }
 
-  getTemplate() {
-    return createEditEventTemplate(this.event);
+  get template() {
+    return createEditEventTemplate(this.#event);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
+  #clickHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleClick();
+  };
 }
