@@ -1,4 +1,5 @@
 import EventListView from "../view/event-list-view.js";
+import EventsEmptyView from "../view/events-empty.js";
 import SortView from "../view/sort-view.js";
 import NewEventView from "../view/new-event-view.js";
 import EditEventView from "../view/edit-event-view.js";
@@ -20,6 +21,12 @@ export default class EventsPresenter {
     this.#events = [...this.#eventsModel.events];
 
     render(new SortView(), this.#eventsContainer);
+
+    if (this.#events.length === 0) {
+      render(new EventsEmptyView(), this.#eventsContainer);
+      return;
+    }
+
     render(this.#eventsListComponent, this.#eventsContainer);
     render(new NewEventView(), this.#eventsListComponent.element);
 
