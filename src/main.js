@@ -14,7 +14,11 @@ const eventsPresenter = new EventsPresenter({
   eventsModel,
 });
 
-render(new TripInfoView(), mainElement, RenderPosition.AFTERBEGIN);
+render(
+  new TripInfoView({ eventsModel }),
+  mainElement,
+  RenderPosition.AFTERBEGIN
+);
 render(new FilterView(), filtersElement);
 
 eventsPresenter.init();
