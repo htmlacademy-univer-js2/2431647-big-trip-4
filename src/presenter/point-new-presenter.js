@@ -1,6 +1,6 @@
-import { render, remove, RenderPosition } from '../framework/render.js';
-import PointView from '../view/point-view.js';
-import { UserAction, UpdateType } from '../const.js';
+import { render, remove, RenderPosition } from "../framework/render.js";
+import PointView from "../view/point-view.js";
+import { UserAction, UpdateType } from "../const.js";
 
 export default class PointNewPresenter {
   #pointListContainer = null;
@@ -14,7 +14,12 @@ export default class PointNewPresenter {
   #destinations = null;
   #offers = null;
 
-  constructor({pointListContainer, changeData, destinationsModel, offersModel}) {
+  constructor({
+    pointListContainer,
+    changeData,
+    destinationsModel,
+    offersModel,
+  }) {
     this.#pointListContainer = pointListContainer;
     this.#changeData = changeData;
     this.#destinationsModel = destinationsModel;
@@ -33,14 +38,18 @@ export default class PointNewPresenter {
     this.#creatingPointComponent = new PointView({
       destination: this.#destinations,
       offers: this.#offers,
-      isNewPoint: true
+      isNewPoint: true,
     });
     this.#creatingPointComponent.setFormSubmitHandler(this.#handleFormSubmit);
     this.#creatingPointComponent.setResetClickHandler(this.#handleResetClick);
 
-    render(this.#creatingPointComponent, this.#pointListContainer, RenderPosition.AFTERBEGIN);
+    render(
+      this.#creatingPointComponent,
+      this.#pointListContainer,
+      RenderPosition.AFTERBEGIN
+    );
 
-    document.addEventListener('keydown', this.#escKeyDownHandler);
+    document.addEventListener("keydown", this.#escKeyDownHandler);
   };
 
   destroy = () => {
@@ -53,7 +62,7 @@ export default class PointNewPresenter {
     remove(this.#creatingPointComponent);
     this.#creatingPointComponent = null;
 
-    document.removeEventListener('keydown', this.#escKeyDownHandler);
+    document.removeEventListener("keydown", this.#escKeyDownHandler);
   };
 
   setSaving = () => {
@@ -76,7 +85,7 @@ export default class PointNewPresenter {
   };
 
   #escKeyDownHandler = (evt) => {
-    if (evt.key === 'Escape' || evt.key === 'Esc') {
+    if (evt.key === "Escape" || evt.key === "Esc") {
       evt.preventDefault();
       this.destroy();
     }
@@ -87,10 +96,6 @@ export default class PointNewPresenter {
   };
 
   #handleFormSubmit = (point) => {
-    this.#changeData(
-      UserAction.ADD_POINT,
-      UpdateType.MINOR,
-      point,
-    );
+    this.#changeData(UserAction.ADD_POINT, UpdateType.MINOR, point);
   };
 }

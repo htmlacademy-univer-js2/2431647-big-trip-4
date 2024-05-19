@@ -1,6 +1,6 @@
-import Observable from '../framework/observable.js';
+import Observable from "../framework/observable.js";
 
-export default class OffersModel extends Observable{
+export default class OffersModel extends Observable {
   #offers = [];
   #offersApiService = null;
 
@@ -12,7 +12,7 @@ export default class OffersModel extends Observable{
   init = async () => {
     try {
       this.#offers = await this.#offersApiService.offers;
-    } catch(err) {
+    } catch (err) {
       this.#offers = [];
     }
   };
