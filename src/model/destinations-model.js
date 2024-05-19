@@ -1,4 +1,4 @@
-import Observable from '../framework/observable.js';
+import Observable from "../framework/observable.js";
 
 export default class DestinationsModel extends Observable {
   #destinations = [];
@@ -12,7 +12,7 @@ export default class DestinationsModel extends Observable {
   init = async () => {
     try {
       this.#destinations = await this.#destinationsApiService.destinations;
-    } catch(err) {
+    } catch (err) {
       this.#destinations = [];
     }
   };

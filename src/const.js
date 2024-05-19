@@ -1,4 +1,4 @@
-const AUTHORIZATION = "Basic hIfpbpd204fpubd6";
+const AUTHORIZATION = "Basic Kirikel";
 const END_POINT = "https://21.objects.htmlacademy.pro/big-trip";
 
 const SORT_TYPES_DISABLED = ["event", "offer"];

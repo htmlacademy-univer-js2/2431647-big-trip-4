@@ -1,11 +1,11 @@
-import { render, replace, remove } from '../framework/render.js';
-import PreviewPointView from '../view/preview-point-view.js';
-import PointView from '../view/point-view.js';
-import { UserAction, UpdateType } from '../const.js';
+import { render, replace, remove } from "../framework/render.js";
+import PreviewPointView from "../view/preview-point-view.js";
+import PointView from "../view/point-view.js";
+import { UserAction, UpdateType } from "../const.js";
 
 const Mode = {
-  PREVIEW: 'preview',
-  EDITING: 'editing',
+  PREVIEW: "preview",
+  EDITING: "editing",
 };
 
 export default class PointPresenter {
@@ -24,7 +24,13 @@ export default class PointPresenter {
   #point = null;
   #mode = Mode.PREVIEW;
 
-  constructor({pointListContainer, changeData, changeMode, destinationsModel, offersModel}) {
+  constructor({
+    pointListContainer,
+    changeData,
+    changeMode,
+    destinationsModel,
+    offersModel,
+  }) {
     this.#pointListContainer = pointListContainer;
     this.#destinationsModel = destinationsModel;
     this.#offersModel = offersModel;
@@ -38,23 +44,34 @@ export default class PointPresenter {
     this.#offers = [...this.#offersModel.offers];
 
     const prevPreviewPointComponent = this.#previewPointComponent;
-    const prevEditingPointComponent =  this.#editingPointComponent;
+    const prevEditingPointComponent = this.#editingPointComponent;
 
-    this.#previewPointComponent = new PreviewPointView(point, this.#destinations, this.#offers);
+    this.#previewPointComponent = new PreviewPointView(
+      point,
+      this.#destinations,
+      this.#offers
+    );
     this.#editingPointComponent = new PointView({
       point: point,
       destination: this.#destinations,
       offers: this.#offers,
-      isNewPoint: false
+      isNewPoint: false,
     });
 
     this.#previewPointComponent.setEditClickHandler(this.#handleEditClick);
-    this.#previewPointComponent.setFavoriteClickHandler(this.#handleFavoriteClick);
-    this.#editingPointComponent.setPreviewClickHandler(this.#handlePreviewClick);
+    this.#previewPointComponent.setFavoriteClickHandler(
+      this.#handleFavoriteClick
+    );
+    this.#editingPointComponent.setPreviewClickHandler(
+      this.#handlePreviewClick
+    );
     this.#editingPointComponent.setFormSubmitHandler(this.#handleFormSubmit);
     this.#editingPointComponent.setResetClickHandler(this.#handleResetClick);
 
-    if (prevPreviewPointComponent === null || prevEditingPointComponent === null) {
+    if (
+      prevPreviewPointComponent === null ||
+      prevEditingPointComponent === null
+    ) {
       render(this.#previewPointComponent, this.#pointListContainer);
       return;
     }
@@ -122,30 +139,29 @@ export default class PointPresenter {
 
   #replacePreviewPointToEditingPoint = () => {
     replace(this.#editingPointComponent, this.#previewPointComponent);
-    document.addEventListener('keydown', this.#escKeyDownHandler);
+    document.addEventListener("keydown", this.#escKeyDownHandler);
     this.#changeMode();
     this.#mode = Mode.EDITING;
   };
 
   #replaceEditingPointToPreviewPoint = () => {
     replace(this.#previewPointComponent, this.#editingPointComponent);
-    document.removeEventListener('keydown', this.#escKeyDownHandler);
+    document.removeEventListener("keydown", this.#escKeyDownHandler);
     this.#mode = Mode.PREVIEW;
   };
 
   #escKeyDownHandler = (evt) => {
-    if (evt.key === 'Escape' || evt.key === 'Esc') {
+    if (evt.key === "Escape" || evt.key === "Esc") {
       evt.preventDefault();
       this.resetView();
     }
   };
 
   #handleFavoriteClick = () => {
-    this.#changeData(
-      UserAction.UPDATE_POINT,
-      UpdateType.PATCH,
-      {...this.#point, isFavorite: !this.#point.isFavorite},
-    );
+    this.#changeData(UserAction.UPDATE_POINT, UpdateType.PATCH, {
+      ...this.#point,
+      isFavorite: !this.#point.isFavorite,
+    });
   };
 
   #handleEditClick = () => {
@@ -157,18 +173,10 @@ export default class PointPresenter {
   };
 
   #handleFormSubmit = (point) => {
-    this.#changeData(
-      UserAction.UPDATE_POINT,
-      UpdateType.MINOR,
-      point,
-    );
+    this.#changeData(UserAction.UPDATE_POINT, UpdateType.MINOR, point);
   };
 
   #handleResetClick = (point) => {
-    this.#changeData(
-      UserAction.DELETE_POINT,
-      UpdateType.MINOR,
-      point,
-    );
+    this.#changeData(UserAction.DELETE_POINT, UpdateType.MINOR, point);
   };
 }
