@@ -3,7 +3,7 @@ import {
   isPointDateFuture,
   isPointDatePast,
   isPointDateFuturePast,
-} from "./point.js";
+} from "./date-point.js";
 
 const filter = {
   [FilterType.EVERYTHING]: (points) => points,

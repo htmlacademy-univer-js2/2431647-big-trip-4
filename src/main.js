@@ -1,8 +1,8 @@
 import { render } from "./framework/render.js";
 import FilterPresenter from "./presenter/filter-presenter.js";
-import BoardPresenter from "./presenter/board-presenter.js";
-import NewPointButtonPresenter from "./presenter/new-point-button-presenter.js";
-import SiteMenuView from "./view/site-menu-view.js";
+import HeaderPresenter from "./presenter/header-presenter.js";
+import AddNewPointButtonPresenter from "./presenter/add-new-point-button-presenter.js";
+import MenuView from "./view/menu-view.js";
 import PointsModel from "./model/points-model.js";
 import FilterModel from "./model/filter-model.js";
 import DestinationsModel from "./model/destinations-model.js";
@@ -29,11 +29,13 @@ const filterModel = new FilterModel();
 const filterPresenter = new FilterPresenter({
   filterContainer: siteHeaderElement.querySelector(".trip-controls__filters"),
   pointsModel: pointsModel,
+  destinationsModel: destinationsModel,
+  offersModel: offersModel,
   filterModel: filterModel,
 });
 filterPresenter.init();
 
-const boardPresenter = new BoardPresenter({
+const headerPresenter = new HeaderPresenter({
   tripInfoContainer: siteHeaderElement.querySelector(".trip-main__trip-info"),
   tripContainer: siteMainElement.querySelector(".trip-events"),
   pointsModel: pointsModel,
@@ -41,26 +43,26 @@ const boardPresenter = new BoardPresenter({
   destinationsModel: destinationsModel,
   offersModel: offersModel,
 });
-boardPresenter.init();
+headerPresenter.init();
 
-const newPointButtonPresenter = new NewPointButtonPresenter({
+const addNewPointButtonPresenter = new AddNewPointButtonPresenter({
   newPointButtonContainer: siteHeaderElement,
   destinationsModel: destinationsModel,
+  pointsModel: pointsModel,
   offersModel: offersModel,
-  boardPresenter: boardPresenter,
+  headerPresenter: headerPresenter,
 });
-
-newPointButtonPresenter.init();
+addNewPointButtonPresenter.init();
 
 offersModel.init().finally(() => {
   destinationsModel.init().finally(() => {
     pointsModel.init().finally(() => {
-      newPointButtonPresenter.renderNewPointButton();
+      addNewPointButtonPresenter.renderNewPointButton();
     });
   });
 });
 
 render(
-  new SiteMenuView(),
+  new MenuView(),
   siteHeaderElement.querySelector(".trip-controls__navigation")
 );

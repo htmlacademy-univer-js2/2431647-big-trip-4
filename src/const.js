@@ -1,7 +1,5 @@
-const AUTHORIZATION = "Basic Kirikel";
+const AUTHORIZATION = "Basic hIfpbpd204fpubd6";
 const END_POINT = "https://21.objects.htmlacademy.pro/big-trip";
-
-const SORT_TYPES_DISABLED = ["event", "offer"];
 
 const UserAction = {
   UPDATE_POINT: "UPDATE_POINT",
@@ -82,7 +80,6 @@ export {
   SortTypeDescription,
   PointType,
   PointTypeDescription,
-  SORT_TYPES_DISABLED,
   ApiServiceResponseMethod,
   AUTHORIZATION,
   END_POINT,
