@@ -36,7 +36,7 @@ export default class PointNewPresenter {
     this.#offers = [...this.#offersModel.offers];
 
     this.#creatingPointComponent = new PointView({
-      destination: this.#destinations,
+      destinations: this.#destinations,
       offers: this.#offers,
       isNewPoint: true,
     });
