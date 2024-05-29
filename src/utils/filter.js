@@ -13,6 +13,7 @@ const filter = {
         isPointDateFuture(point.dateFrom) ||
         isPointDateFuturePast(point.dateFrom, point.dateTo)
     ),
+
   [FilterType.PAST]: (points) =>
     points.filter(
       (point) =>
