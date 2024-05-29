@@ -44,11 +44,11 @@ export default class PointsApiService extends ApiService {
   #adaptToServer = (point) => {
     const adaptedPoint = {
       ...point,
-      base_price: point.basePrice,
-      date_from:
+      base_Price: point.basePrice,
+      date_From:
         point.dateFrom instanceof Date ? point.dateFrom.toISOString() : null,
-      date_to: point.dateTo instanceof Date ? point.dateTo.toISOString() : null,
-      is_favorite: point.isFavorite,
+      date_To: point.dateTo instanceof Date ? point.dateTo.toISOString() : null,
+      is_Favorite: point.isFavorite,
     };
 
     // Ненужные ключи мы удаляем
