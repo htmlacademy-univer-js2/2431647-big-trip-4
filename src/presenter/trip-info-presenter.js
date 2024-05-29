@@ -1,5 +1,5 @@
-import { render, remove } from "../framework/render.js";
-import InfoView from "../view/info-view.js";
+import { render, remove } from '../framework/render.js';
+import InfoView from '../view/info-view.js';
 
 export default class InfoPresenter {
   #points = null;

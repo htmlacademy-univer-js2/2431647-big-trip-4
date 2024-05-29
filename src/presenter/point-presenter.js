@@ -1,11 +1,11 @@
-import { render, replace, remove } from "../framework/render.js";
-import PreviewPointView from "../view/preview-view.js";
-import PointView from "../view/point-view.js";
-import { UserAction, UpdateType } from "../const.js";
+import { render, replace, remove } from '../framework/render.js';
+import PreviewPointView from '../view/preview-view.js';
+import PointView from '../view/point-view.js';
+import { UserAction, UpdateType } from '../const.js';
 
 const Mode = {
-  PREVIEW: "preview",
-  EDITING: "editing",
+  PREVIEW: 'preview',
+  EDITING: 'editing',
 };
 
 export default class PointPresenter {
@@ -140,19 +140,19 @@ export default class PointPresenter {
 
   #replacePreviewPointToEditingPoint = () => {
     replace(this.#editingPointComponent, this.#previewPointComponent);
-    document.addEventListener("keydown", this.#escKeyDownHandler);
+    document.addEventListener('keydown', this.#escKeyDownHandler);
     this.#changeMode();
     this.#mode = Mode.EDITING;
   };
 
   #replaceEditingPointToPreviewPoint = () => {
     replace(this.#previewPointComponent, this.#editingPointComponent);
-    document.removeEventListener("keydown", this.#escKeyDownHandler);
+    document.removeEventListener('keydown', this.#escKeyDownHandler);
     this.#mode = Mode.PREVIEW;
   };
 
   #escKeyDownHandler = (evt) => {
-    if (evt.key === "Escape" || evt.key === "Esc") {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
       evt.preventDefault();
       this.resetView();
     }

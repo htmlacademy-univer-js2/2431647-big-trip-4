@@ -1,6 +1,6 @@
-import { render, remove, RenderPosition } from "../framework/render.js";
-import PointView from "../view/point-view.js";
-import { UserAction, UpdateType } from "../const.js";
+import { render, remove, RenderPosition } from '../framework/render.js';
+import PointView from '../view/point-view.js';
+import { UserAction, UpdateType } from '../const.js';
 
 export default class PointNewPresenter {
   #pointListContainer = null;
@@ -49,7 +49,7 @@ export default class PointNewPresenter {
       RenderPosition.AFTERBEGIN
     );
 
-    document.addEventListener("keydown", this.#escKeyDownHandler);
+    document.addEventListener('keydown', this.#escKeyDownHandler);
   };
 
   destroy = () => {
@@ -62,7 +62,7 @@ export default class PointNewPresenter {
     remove(this.#creatingPointComponent);
     this.#creatingPointComponent = null;
 
-    document.removeEventListener("keydown", this.#escKeyDownHandler);
+    document.removeEventListener('keydown', this.#escKeyDownHandler);
   };
 
   setSaving = () => {
@@ -85,7 +85,7 @@ export default class PointNewPresenter {
   };
 
   #escKeyDownHandler = (evt) => {
-    if (evt.key === "Escape" || evt.key === "Esc") {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
       evt.preventDefault();
       this.destroy();
     }

@@ -1,5 +1,5 @@
-import Observable from "../framework/observable.js";
-import { UpdateType } from "../const.js";
+import Observable from '../framework/observable.js';
+import { UpdateType } from '../const.js';
 
 export default class PointsModel extends Observable {
   #points = [];
@@ -36,7 +36,7 @@ export default class PointsModel extends Observable {
     const index = this.#points.findIndex((point) => point.id === update.id);
 
     if (index === -1) {
-      throw new Error("Can't update unexisting point");
+      throw new Error('Cant update unexisting point');
     }
 
     try {
@@ -49,7 +49,7 @@ export default class PointsModel extends Observable {
       ];
       this._notify(updateType, updatedPoint);
     } catch (err) {
-      throw new Error("Can't update point");
+      throw new Error('Cant update point');
     }
   };
 
@@ -60,7 +60,7 @@ export default class PointsModel extends Observable {
       this.#points.unshift(newPoint);
       this._notify(updateType, newPoint);
     } catch (err) {
-      throw new Error("Can't add point");
+      throw new Error('Cant add point');
     }
   };
 
@@ -68,7 +68,7 @@ export default class PointsModel extends Observable {
     const index = this.#points.findIndex((point) => point.id === update.id);
 
     if (index === -1) {
-      throw new Error("Can't delete unexisting point");
+      throw new Error('Cant delete unexisting point');
     }
 
     try {
@@ -79,29 +79,29 @@ export default class PointsModel extends Observable {
       ];
       this._notify(updateType);
     } catch (err) {
-      throw new Error("Can't delete point");
+      throw new Error('Cant delete point');
     }
   };
 
   #adaptToClient = (point) => {
     const adaptedPoint = {
       ...point,
-      basePrice: point["base_price"],
+      basePrice: point['base_price'],
       dateFrom:
-        point["date_from"] !== null || point["date_from"] !== undefined
-          ? new Date(point["date_from"])
-          : point["date_from"],
+        point['date_from'] !== null || point['date_from'] !== undefined
+          ? new Date(point['date_from'])
+          : point['date_from'],
       dateTo:
-        point["date_to"] !== null || point["date_to"] !== undefined
-          ? new Date(point["date_to"])
-          : point["date_to"],
-      isFavorite: point["is_favorite"],
+        point['date_to'] !== null || point['date_to'] !== undefined
+          ? new Date(point['date_to'])
+          : point['date_to'],
+      isFavorite: point['is_favorite'],
     };
 
-    delete adaptedPoint["base_price"];
-    delete adaptedPoint["date_from"];
-    delete adaptedPoint["date_to"];
-    delete adaptedPoint["is_favorite"];
+    delete adaptedPoint['base_price'];
+    delete adaptedPoint['date_from'];
+    delete adaptedPoint['date_to'];
+    delete adaptedPoint['is_favorite'];
 
     return adaptedPoint;
   };
