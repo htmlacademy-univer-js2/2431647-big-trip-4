@@ -1,9 +1,9 @@
-import AbstractView from "../framework/view/abstract-view.js";
-import { humanizePointDueDate } from "../utils/date-point.js";
+import AbstractView from '../framework/view/abstract-view.js';
+import { humanizePointDueDate } from '../utils/date-point.js';
 
 const renderRouteTrip = (points, destinations) => {
   if (points.length === 0) {
-    return "";
+    return '';
   }
   const routeWithoutRepeats = [points[0].destination];
   for (let i = 1; i < points.length; i++) {
@@ -27,18 +27,18 @@ const renderRouteTrip = (points, destinations) => {
       (destination) =>
         `${destinations.find((item) => item.id === destination).name}`
     )
-    .join(" &mdash; ");
+    .join(' &mdash; ');
 };
 const renderDatesTrip = (points) => {
   if (points.length === 0) {
-    return "";
+    return '';
   }
   const startDate =
-    points[0].dateFrom !== null ? humanizePointDueDate(points[0].dateFrom) : "";
+    points[0].dateFrom !== null ? humanizePointDueDate(points[0].dateFrom) : '';
   const endDate =
     points[points.length - 1].dateTo !== null
       ? humanizePointDueDate(points[points.length - 1].dateTo)
-      : "";
+      : '';
   return `${startDate}&nbsp;&mdash;&nbsp;${endDate}`;
 };
 

@@ -1,19 +1,19 @@
-import { render } from "./framework/render.js";
-import FilterPresenter from "./presenter/filter-presenter.js";
-import HeaderPresenter from "./presenter/header-presenter.js";
-import AddNewPointButtonPresenter from "./presenter/add-new-point-button-presenter.js";
-import MenuView from "./view/menu-view.js";
-import PointsModel from "./model/points-model.js";
-import FilterModel from "./model/filter-model.js";
-import DestinationsModel from "./model/destinations-model.js";
-import OffersModel from "./model/offers-model.js";
-import PointsApiService from "./api-service/points-api-service.js";
-import DestinationsApiService from "./api-service/destinations-api-service.js";
-import OffersApiService from "./api-service/offers-api-service.js";
-import { END_POINT, AUTHORIZATION } from "./const.js";
+import { render } from './framework/render.js';
+import FilterPresenter from './presenter/filter-presenter.js';
+import HeaderPresenter from './presenter/header-presenter.js';
+import AddNewPointButtonPresenter from './presenter/add-new-point-button-presenter.js';
+import MenuView from './view/menu-view.js';
+import PointsModel from './model/points-model.js';
+import FilterModel from './model/filter-model.js';
+import DestinationsModel from './model/destinations-model.js';
+import OffersModel from './model/offers-model.js';
+import PointsApiService from './api-service/points-api-service.js';
+import DestinationsApiService from './api-service/destinations-api-service.js';
+import OffersApiService from './api-service/offers-api-service.js';
+import { END_POINT, AUTHORIZATION } from './const.js';
 
-const siteHeaderElement = document.querySelector(".trip-main");
-const siteMainElement = document.querySelector(".page-main");
+const siteHeaderElement = document.querySelector('.trip-main');
+const siteMainElement = document.querySelector('.page-main');
 
 const pointsModel = new PointsModel(
   new PointsApiService(END_POINT, AUTHORIZATION)
@@ -27,7 +27,7 @@ const offersModel = new OffersModel(
 
 const filterModel = new FilterModel();
 const filterPresenter = new FilterPresenter({
-  filterContainer: siteHeaderElement.querySelector(".trip-controls__filters"),
+  filterContainer: siteHeaderElement.querySelector('.trip-controls__filters'),
   pointsModel: pointsModel,
   destinationsModel: destinationsModel,
   offersModel: offersModel,
@@ -36,8 +36,8 @@ const filterPresenter = new FilterPresenter({
 filterPresenter.init();
 
 const headerPresenter = new HeaderPresenter({
-  tripInfoContainer: siteHeaderElement.querySelector(".trip-main__trip-info"),
-  tripContainer: siteMainElement.querySelector(".trip-events"),
+  tripInfoContainer: siteHeaderElement.querySelector('.trip-main__trip-info'),
+  tripContainer: siteMainElement.querySelector('.trip-events'),
   pointsModel: pointsModel,
   filterModel: filterModel,
   destinationsModel: destinationsModel,
@@ -64,5 +64,5 @@ offersModel.init().finally(() => {
 
 render(
   new MenuView(),
-  siteHeaderElement.querySelector(".trip-controls__navigation")
+  siteHeaderElement.querySelector('.trip-controls__navigation')
 );

@@ -1,22 +1,22 @@
-import { render, RenderPosition, remove } from "../framework/render.js";
-import UiBlocker from "../framework/ui-blocker/ui-blocker.js";
-import PointsListView from "../view/points-list-view.js";
-import SortingFormView from "../view/sorting-form-view.js";
-import NoEventView from "../view/no-event-view.js";
-import LoadingView from "../view/loading-view.js";
-import NoAdditionalInfoView from "../view/no-additional-info-view.js";
-import PointPresenter from "./point-presenter.js";
-import PointNewPresenter from "./point-new-presenter.js";
-import { sorting } from "../utils/sorting.js";
-import { filter } from "../utils/filter.js";
+import { render, RenderPosition, remove } from '../framework/render.js';
+import UiBlocker from '../framework/ui-blocker/ui-blocker.js';
+import PointsListView from '../view/points-list-view.js';
+import SortingFormView from '../view/sorting-form-view.js';
+import NoEventView from '../view/no-event-view.js';
+import LoadingView from '../view/loading-view.js';
+import NoAdditionalInfoView from '../view/no-additional-info-view.js';
+import PointPresenter from './point-presenter.js';
+import PointNewPresenter from './point-new-presenter.js';
+import { sorting } from '../utils/sorting.js';
+import { filter } from '../utils/filter.js';
 import {
   UpdateType,
   UserAction,
   SortType,
   FilterType,
   TimeLimit,
-} from "../const.js";
-import TripInfoPresenter from "./trip-info-presenter.js";
+} from '../const.js';
+import TripInfoPresenter from './trip-info-presenter.js';
 
 export default class BoardPresenter {
   #tripInfoContainer = null;

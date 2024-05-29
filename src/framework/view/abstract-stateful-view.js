@@ -1,4 +1,4 @@
-import AbstractView from "./abstract-view.js";
+import AbstractView from './abstract-view.js';
 
 /**
  * Абстрактный класс представления с состоянием
@@ -26,7 +26,7 @@ export default class AbstractStatefulView extends AbstractView {
    * @abstract
    */
   _restoreHandlers() {
-    throw new Error("Abstract method not implemented: restoreHandlers");
+    throw new Error('Abstract method not implemented: restoreHandlers');
   }
 
   /**
